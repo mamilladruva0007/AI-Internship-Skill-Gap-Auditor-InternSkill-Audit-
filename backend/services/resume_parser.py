@@ -1,13 +1,10 @@
-import fitz  # PyMuPDF
+import fitz  
 import docx2txt
 from fastapi import UploadFile
 
 def parse_resume(file: UploadFile) -> str:
     filename = file.filename.lower()
 
-    # ----------------------
-    # PDF parsing
-    # ----------------------
     if filename.endswith(".pdf"):
         content = file.file.read()
 
@@ -17,7 +14,7 @@ def parse_resume(file: UploadFile) -> str:
         for page in doc:
             text += page.get_text()
 
-        # IMPORTANT: handle scanned PDFs
+   
         if not text.strip():
             raise RuntimeError(
                 "No text could be extracted from this PDF. "
@@ -25,12 +22,8 @@ def parse_resume(file: UploadFile) -> str:
             )
 
         return text
-
-    # ----------------------
-    # DOCX parsing
-    # ----------------------
     if filename.endswith(".docx"):
-        file.file.seek(0)  # 🔥 CRITICAL FIX
+        file.file.seek(0)  
         text = docx2txt.process(file.file)
 
         if not text.strip():
@@ -38,7 +31,6 @@ def parse_resume(file: UploadFile) -> str:
 
         return text
 
-    # ----------------------
-    # Unsupported file
-    # ----------------------
+
     raise RuntimeError("Unsupported resume format")
+
