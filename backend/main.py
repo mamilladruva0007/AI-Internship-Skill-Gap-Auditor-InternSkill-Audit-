@@ -11,12 +11,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# --------------------
-# CORS Configuration
-# --------------------
-# NOTE:
-# allow_origins=["*"] is OK for development.
-# In production, replace with your frontend domain.
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -25,9 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --------------------
-# API Routers
-# --------------------
+
 app.include_router(
     resume_router,
     prefix="/api/resume",
@@ -40,9 +33,8 @@ app.include_router(
     tags=["AI Assistant"]
 )
 
-# --------------------
-# Root Health Check
-# --------------------
+
 @app.get("/")
 def root():
     return {"status": "InternSkill Audit API running"}
+
