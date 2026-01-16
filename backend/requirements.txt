@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-dotenv
+python-multipart
+pymupdf
+docx2txt
+google-generativeai
+scikit-learn
+nltk
+requests
+python-dotenv
